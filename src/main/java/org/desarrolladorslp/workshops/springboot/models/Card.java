@@ -20,7 +20,7 @@ public class Card {
     @javax.persistence.Column(length = 2000)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "column_id")
     private Column column;
 

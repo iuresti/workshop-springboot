@@ -23,11 +23,11 @@ public class BoardController {
     @RequestMapping(value = "/board", method = RequestMethod.POST)
     @ResponseBody
     private HttpStatus createBoard(@RequestParam(value = "userId", required = true) Long userId,@RequestParam(value = "name", required = true) String name) {
-        Board Board = new Board();
+        Board board = new Board();
         User user = userService.findById(userId);
-        Board.setName(name);
-        Board.setUser(user);
-        boardService.createBoard(Board);
+        board.setName(name);
+        board.setUser(user);
+        boardService.createBoard(board);
         return HttpStatus.OK;
     }
 

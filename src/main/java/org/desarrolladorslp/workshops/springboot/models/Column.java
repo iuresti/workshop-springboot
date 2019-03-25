@@ -24,7 +24,7 @@ public class Column {
     @javax.persistence.Column(length = 30)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
 
