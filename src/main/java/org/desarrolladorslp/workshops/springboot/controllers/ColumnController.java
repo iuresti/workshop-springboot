@@ -39,20 +39,20 @@ public class ColumnController {
 
     @RequestMapping(value = "/column/{id}", method = RequestMethod.GET)
     @ResponseBody
-    private Column getColumnById(@PathVariable("id")Long id) {
+    private Column getColumnById(@PathVariable("id")Long id) throws Exception {
         return columnService.findById(id);
     }
 
     @RequestMapping(value = "/column/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteColumn(@PathVariable("id")Long id) {
+    private HttpStatus deleteColumn(@PathVariable("id")Long id) throws Exception {
         columnService.deleteColumn(id);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value = "/column/{id}", method = RequestMethod.PATCH)
     @ResponseBody
-    private HttpStatus updateColumn(@PathVariable("id")Long id,@RequestParam(value = "name", required = true)String name) {
+    private HttpStatus updateColumn(@PathVariable("id")Long id,@RequestParam(value = "name", required = true)String name) throws Exception {
         Column column = columnService.findById(id);
         column.setName(name);
         columnService.updateColumn(column);

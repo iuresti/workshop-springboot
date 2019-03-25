@@ -34,20 +34,20 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     @ResponseBody
-    private User getUsersById(@PathVariable("id")Long id) {
+    private User getUsersById(@PathVariable("id")Long id) throws Exception {
         return userService.findById(id);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteUser(@PathVariable("id")Long id) {
+    private HttpStatus deleteUser(@PathVariable("id")Long id) throws Exception {
         userService.deleteUser(id);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PATCH)
     @ResponseBody
-    private HttpStatus updateUser(@PathVariable("id")Long id,@RequestParam(value = "email", required = true) String email, @RequestParam(value = "name", required = true) String name) {
+    private HttpStatus updateUser(@PathVariable("id")Long id,@RequestParam(value = "email", required = true) String email, @RequestParam(value = "name", required = true) String name) throws Exception {
         User user = userService.findById(id);
         user.setName(name);
         user.setEmail(email);

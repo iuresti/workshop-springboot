@@ -8,7 +8,7 @@ import java.util.List;
 public interface ColumnService {
     Column createColumn(Column column);
     List<Column> findColumnsByBoard(Long boardId);
-    Column findById(Long id);
-    void deleteColumn(Long id);
+    Column findById(Long id) throws Exception;
+    void deleteColumn(Long id) throws Exception;
     Column updateColumn(Column column);
 }

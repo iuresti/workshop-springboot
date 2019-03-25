@@ -22,7 +22,7 @@ public class BoardController {
 
     @RequestMapping(value = "/board", method = RequestMethod.POST)
     @ResponseBody
-    private HttpStatus createBoard(@RequestParam(value = "userId", required = true) Long userId,@RequestParam(value = "name", required = true) String name) {
+    private HttpStatus createBoard(@RequestParam(value = "userId", required = true) Long userId,@RequestParam(value = "name", required = true) String name) throws Exception {
         Board board = new Board();
         User user = userService.findById(userId);
         board.setName(name);
@@ -34,7 +34,7 @@ public class BoardController {
 
     @RequestMapping(value = "/boards", method = RequestMethod.GET)
     @ResponseBody
-    private List<Board> getBoardsByUser(@RequestParam(value="userId", required = true)Long userId) {
+    private List<Board> getBoardsByUser(@RequestParam(value="userId", required = true)Long userId) throws Exception {
         return boardService.findBoardsByUser(userId);
     }
 
@@ -46,7 +46,7 @@ public class BoardController {
 
     @RequestMapping(value = "/board/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteBoard(@PathVariable("id")Long id) {
+    private HttpStatus deleteBoard(@PathVariable("id")Long id) throws Exception {
         boardService.deleteBoard(id);
         return HttpStatus.OK;
     }

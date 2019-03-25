@@ -32,13 +32,13 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
-    public Column findById(Long id) {
-        return columnRepository.findById(id).orElse(null);
+    public Column findById(Long id) throws Exception {
+        return columnRepository.findById(id).orElseThrow(()->new Exception("Column not found"));
     }
 
     @Override
-    public void deleteColumn(Long id) {
-        Column column = columnRepository.findById(id).orElse(null);
+    public void deleteColumn(Long id) throws Exception {
+        Column column = columnRepository.findById(id).orElseThrow(()->new Exception("Column not found"));
         columnRepository.delete(column);
     }
 

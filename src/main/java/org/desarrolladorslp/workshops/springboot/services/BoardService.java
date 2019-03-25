@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface BoardService {
     Board createBoard(Board board);
-    List<Board> findBoardsByUser(Long userId);
+    List<Board> findBoardsByUser(Long userId) throws Exception;
     Board findById(Long id);
-    void deleteBoard(Long id);
+    void deleteBoard(Long id) throws Exception;
     Board updateBoard(Board board);
 
 }

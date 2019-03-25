@@ -22,7 +22,7 @@ public class CardController {
 
     @RequestMapping(value = "/card", method = RequestMethod.POST)
     @ResponseBody
-    private HttpStatus createCard(@RequestParam(value = "columnId", required = true) Long columnId, @RequestParam(value = "description", required = true) String description) {
+    private HttpStatus createCard(@RequestParam(value = "columnId", required = true) Long columnId, @RequestParam(value = "description", required = true) String description) throws Exception {
         Card card = new Card();
         Column column = columnService.findById(columnId);
         card.setDescription(description);
@@ -35,19 +35,19 @@ public class CardController {
 
     @RequestMapping(value = "/cards", method = RequestMethod.GET)
     @ResponseBody
-    private List<Card> getCardsByColumn(@RequestParam(value="columnId", required = true)Long columnId) {
+    private List<Card> getCardsByColumn(@RequestParam(value="columnId", required = true)Long columnId) throws Exception {
         return cardService.findCardsByColumn(columnId);
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET)
     @ResponseBody
-    private Card getCardById(@PathVariable("id")Long id) {
+    private Card getCardById(@PathVariable("id")Long id) throws Exception {
         return cardService.findById(id);
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteCard(@PathVariable("id")Long id) {
+    private HttpStatus deleteCard(@PathVariable("id")Long id) throws Exception {
         cardService.deleteCard(id);
         return HttpStatus.OK;
     }

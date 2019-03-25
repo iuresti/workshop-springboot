@@ -3,7 +3,6 @@ package org.desarrolladorslp.workshops.springboot.services.Impl;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.repository.BoardRepository;
-import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findBoardsByUser(Long userId) {
+    public List<Board> findBoardsByUser(Long userId) throws Exception {
         User user = userService.findById(userId);
         return boardRepository.findBoardsByUser(user);
     }
@@ -38,8 +37,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteBoard(Long id) {
-        Board board = boardRepository.findById(id).orElse(null);
+    public void deleteBoard(Long id) throws Exception {
+        Board board = boardRepository.findById(id).orElseThrow(()->new Exception("Board not found"));
         boardRepository.delete(board);
     }
 

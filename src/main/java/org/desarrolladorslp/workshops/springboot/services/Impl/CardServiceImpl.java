@@ -26,19 +26,19 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> findCardsByColumn(Long columnId) {
+    public List<Card> findCardsByColumn(Long columnId) throws Exception {
         Column column = columnService.findById(columnId);
         return cardRepository.findByColumn(column);
     }
 
     @Override
-    public Card findById(Long id) {
-        return cardRepository.findById(id).orElse(null);
+    public Card findById(Long id) throws Exception {
+        return cardRepository.findById(id).orElseThrow(()->new Exception("Card not found"));
     }
 
     @Override
-    public void deleteCard(Long id) {
-        Card card = cardRepository.findById(id).orElse(null);
+    public void deleteCard(Long id) throws Exception {
+        Card card = cardRepository.findById(id).orElseThrow(()->new Exception("Card not found"));
         cardRepository.delete(card);
     }
 
