@@ -1,13 +1,21 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.models.Board;
-import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BoardController {
@@ -15,45 +23,38 @@ public class BoardController {
     private BoardService boardService;
     private UserService userService;
 
-    public BoardController(BoardService BoardService, UserService userService){
+    public BoardController(BoardService BoardService, UserService userService) {
         this.boardService = BoardService;
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/board", method = RequestMethod.POST)
-    @ResponseBody
-    private HttpStatus createBoard(@RequestParam(value = "userId", required = true) Long userId,@RequestParam(value = "name", required = true) String name) throws Exception {
-        Board board = new Board();
-        User user = userService.findById(userId);
-        board.setName(name);
-        board.setUser(user);
-        boardService.createBoard(board);
-        return HttpStatus.OK;
+    @PostMapping(value = "/board")
+    private ResponseEntity<Board> createBoard(@RequestBody Board board) throws Exception {
+
+        return new ResponseEntity<>(boardService.createBoard(board), HttpStatus.CREATED);
     }
 
-
-    @RequestMapping(value = "/boards", method = RequestMethod.GET)
-    @ResponseBody
-    private List<Board> getBoardsByUser(@RequestParam(value="userId", required = true)Long userId) throws Exception {
-        return boardService.findBoardsByUser(userId);
+    @GetMapping(value = "/boards/{userId}")
+    private ResponseEntity<List<Board>> getBoardsByUser(@PathVariable Long userId) throws Exception {
+        return new ResponseEntity<>(boardService.findBoardsByUser(userId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/board/{id}", method = RequestMethod.GET)
     @ResponseBody
-    private Board getBoardsById(@PathVariable("id")Long id) {
+    private Board getBoardsById(@PathVariable("id") Long id) {
         return boardService.findById(id);
     }
 
     @RequestMapping(value = "/board/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteBoard(@PathVariable("id")Long id) throws Exception {
+    private HttpStatus deleteBoard(@PathVariable("id") Long id) throws Exception {
         boardService.deleteBoard(id);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value = "/board/{id}", method = RequestMethod.PATCH)
     @ResponseBody
-    private HttpStatus updateBoard(@PathVariable("id")Long id,@RequestParam(value = "name", required = true)String name) {
+    private HttpStatus updateBoard(@PathVariable("id") Long id, @RequestParam(value = "name", required = true) String name) {
         Board board = boardService.findById(id);
         board.setName(name);
         boardService.updateBoard(board);

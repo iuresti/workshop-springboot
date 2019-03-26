@@ -1,13 +1,18 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.models.Card;
 import org.desarrolladorslp.workshops.springboot.models.Column;
 import org.desarrolladorslp.workshops.springboot.services.CardService;
 import org.desarrolladorslp.workshops.springboot.services.ColumnService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CardController {
@@ -15,7 +20,7 @@ public class CardController {
     private CardService cardService;
     private ColumnService columnService;
 
-    public CardController(CardService cardService,ColumnService columnService){
+    public CardController(CardService cardService, ColumnService columnService) {
         this.cardService = cardService;
         this.columnService = columnService;
     }
@@ -32,37 +37,36 @@ public class CardController {
     }
 
 
-
     @RequestMapping(value = "/cards", method = RequestMethod.GET)
     @ResponseBody
-    private List<Card> getCardsByColumn(@RequestParam(value="columnId", required = true)Long columnId) throws Exception {
+    private List<Card> getCardsByColumn(@RequestParam(value = "columnId", required = true) Long columnId) throws Exception {
         return cardService.findCardsByColumn(columnId);
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET)
     @ResponseBody
-    private Card getCardById(@PathVariable("id")Long id) throws Exception {
+    private Card getCardById(@PathVariable("id") Long id) throws Exception {
         return cardService.findById(id);
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    private HttpStatus deleteCard(@PathVariable("id")Long id) throws Exception {
+    private HttpStatus deleteCard(@PathVariable("id") Long id) throws Exception {
         cardService.deleteCard(id);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.PATCH)
     @ResponseBody
-    private HttpStatus updateCard(@PathVariable("id")Long id,@RequestParam(value = "description", required = true)String description,
-                                  @RequestParam(value = "columnId", required = true)Long columnId) throws Exception {
+    private HttpStatus updateCard(@PathVariable("id") Long id, @RequestParam(value = "description", required = true) String description,
+                                  @RequestParam(value = "columnId", required = true) Long columnId) throws Exception {
         Card newCard = cardService.findById(id);
         Card oldCard = new Card();
         oldCard.setColumn(newCard.getColumn());
         Column column = columnService.findById(columnId);
         newCard.setColumn(column);
         newCard.setDescription(description);
-        cardService.updateCard(oldCard,newCard);
+        cardService.updateCard(oldCard, newCard);
         return HttpStatus.OK;
     }
 
