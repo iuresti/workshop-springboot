@@ -17,6 +17,14 @@ import javax.persistence.UniqueConstraint;
                 @UniqueConstraint(columnNames = {"user_id", "name"})
         })
 public class Board {
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                '}';
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
