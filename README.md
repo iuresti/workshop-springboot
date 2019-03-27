@@ -1,5 +1,6 @@
 # Build
->Algo para construir
+>Instrucciones para construir el projecto
+>Instrucciones para construir el projecto
 
 mvn clean package
 
