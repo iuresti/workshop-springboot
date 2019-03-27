@@ -52,4 +52,15 @@ public class Board {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
+
+
