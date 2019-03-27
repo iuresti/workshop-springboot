@@ -1,5 +1,7 @@
 package org.desarrolladorslp.workshops.springboot.models;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,5 +53,20 @@ public class Board {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return id == board.id &&
+                Objects.equals(name, board.name) &&
+                Objects.equals(user, board.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, user);
     }
 }
