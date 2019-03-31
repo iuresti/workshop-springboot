@@ -1,18 +1,20 @@
 package org.desarrolladorslp.workshops.springboot.services.Impl;
 
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
-    public  UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -22,23 +24,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> allUsers() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByemail(email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     @Override
-    public User findById(Long id) throws Exception {
-        return userRepository.findById(id).orElseThrow(()->new Exception("User not found"));
+    public User findById(Long id) throws EntityNotFoundException {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     @Override
-    public void deleteUser(Long id) throws Exception {
-        User user = userRepository.findById(id).orElseThrow(()->new Exception("User not found"));
+    public void deleteById(Long id) throws EntityNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
         userRepository.delete(user);
     }
 

@@ -7,16 +7,16 @@ import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     private UserService userService;
@@ -25,36 +25,36 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/user")
-    private ResponseEntity<User> createUser(@RequestBody User user) {
+    @PostMapping
+    private ResponseEntity<User> create(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/user")
-    private ResponseEntity<User> getUserByEmail(@RequestParam(value = "email", required = true) String email) {
+    @GetMapping(value = "/email/{email}")
+    private ResponseEntity<User> getByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/{id}")
-    private ResponseEntity<User> getUsersById(@PathVariable("id") Long id) throws Exception {
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<User> getById(@PathVariable("id") Long id) throws Exception {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/user/{id}")
-    private ResponseEntity deleteUser(@PathVariable("id") Long id) throws Exception {
+    @DeleteMapping(value = "/{id}")
+    private ResponseEntity delete(@PathVariable("id") Long id) throws Exception {
 
-        userService.deleteUser(id);
+        userService.deleteById(id);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/user/{id}")
-    private ResponseEntity<User> updateUser(@RequestBody User user) throws Exception {
+    @PutMapping
+    private ResponseEntity<User> update(@RequestBody User user) {
         return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/users")
-    private ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
+    @GetMapping
+    private ResponseEntity<List<User>> list() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 }

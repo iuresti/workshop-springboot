@@ -2,66 +2,54 @@ package org.desarrolladorslp.workshops.springboot.controllers;
 
 import java.util.List;
 
-import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.Column;
-import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.desarrolladorslp.workshops.springboot.services.ColumnService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/column")
 public class ColumnController {
     private ColumnService columnService;
-    private BoardService boardService;
 
-    public ColumnController(BoardService BoardService, ColumnService columnService) {
-        this.boardService = BoardService;
+    public ColumnController(ColumnService columnService) {
         this.columnService = columnService;
     }
 
-    @RequestMapping(value = "/column", method = RequestMethod.POST)
-    @ResponseBody
-    private HttpStatus createColumn(@RequestParam(value = "boardId", required = true) Long boardId, @RequestParam(value = "name", required = true) String name) {
-        Column column = new Column();
-        Board board = boardService.findById(boardId);
-        column.setName(name);
-        column.setBoard(board);
-        columnService.createColumn(column);
-        return HttpStatus.OK;
+    @PostMapping
+    private ResponseEntity<Column> create(@RequestBody Column column) {
+        return new ResponseEntity<>(columnService.create(column), HttpStatus.CREATED);
     }
 
 
-    @RequestMapping(value = "/columns", method = RequestMethod.GET)
-    @ResponseBody
-    private List<Column> getColumnsByBoard(@RequestParam(value = "boardId", required = true) Long boardId) {
-        return columnService.findColumnsByBoard(boardId);
+    @GetMapping("/board/{boardId}")
+    private ResponseEntity<List<Column>> getByBoard(@PathVariable("boardId") Long boardId) {
+        return new ResponseEntity<>(columnService.findByBoard(boardId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/column/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    private Column getColumnById(@PathVariable("id") Long id) throws Exception {
-        return columnService.findById(id);
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<Column> getById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(columnService.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/column/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    private HttpStatus deleteColumn(@PathVariable("id") Long id) throws Exception {
-        columnService.deleteColumn(id);
-        return HttpStatus.OK;
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private void deleteById(@PathVariable("id") Long id) {
+        columnService.deleteById(id);
     }
 
-    @RequestMapping(value = "/column/{id}", method = RequestMethod.PATCH)
-    @ResponseBody
-    private HttpStatus updateColumn(@PathVariable("id") Long id, @RequestParam(value = "name", required = true) String name) throws Exception {
-        Column column = columnService.findById(id);
-        column.setName(name);
-        columnService.updateColumn(column);
-        return HttpStatus.OK;
+    @PutMapping
+    private ResponseEntity<Column> update(@RequestBody Column column) {
+        return new ResponseEntity<>(columnService.update(column), HttpStatus.OK);
     }
 
 

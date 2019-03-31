@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -16,9 +18,11 @@ public class User {
     private long id;
 
     @Column(unique = true, length = 200)
+    @Email
     private String email;
 
     @Column(length = 300)
+    @NotEmpty
     private String name;
 
     public long getId() {

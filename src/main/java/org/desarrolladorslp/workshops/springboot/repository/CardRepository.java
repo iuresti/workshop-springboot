@@ -1,13 +1,15 @@
 package org.desarrolladorslp.workshops.springboot.repository;
 
-import org.desarrolladorslp.workshops.springboot.models.Card;
-import org.desarrolladorslp.workshops.springboot.models.Column;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
+import org.desarrolladorslp.workshops.springboot.models.Card;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 @Repository
-public interface CardRepository extends JpaRepository<Card,Long> {
-    List<Card> findByColumn(Column column);
+public interface CardRepository extends JpaRepository<Card, Long> {
+
+    @Query(value = "SELECT card FROM Card card WHERE card.column.id = ?1")
+    List<Card> findByColumn(long idColumn);
 }

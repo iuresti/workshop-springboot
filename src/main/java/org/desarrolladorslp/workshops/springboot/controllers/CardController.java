@@ -3,71 +3,57 @@ package org.desarrolladorslp.workshops.springboot.controllers;
 import java.util.List;
 
 import org.desarrolladorslp.workshops.springboot.models.Card;
-import org.desarrolladorslp.workshops.springboot.models.Column;
 import org.desarrolladorslp.workshops.springboot.services.CardService;
-import org.desarrolladorslp.workshops.springboot.services.ColumnService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/card")
 public class CardController {
 
     private CardService cardService;
-    private ColumnService columnService;
 
-    public CardController(CardService cardService, ColumnService columnService) {
+    public CardController(CardService cardService) {
         this.cardService = cardService;
-        this.columnService = columnService;
     }
 
-    @RequestMapping(value = "/card", method = RequestMethod.POST)
-    @ResponseBody
-    private HttpStatus createCard(@RequestParam(value = "columnId", required = true) Long columnId, @RequestParam(value = "description", required = true) String description) throws Exception {
-        Card card = new Card();
-        Column column = columnService.findById(columnId);
-        card.setDescription(description);
-        card.setColumn(column);
-        cardService.createCard(card);
-        return HttpStatus.OK;
+    @PostMapping
+    private ResponseEntity<Card> create(@RequestBody Card card) {
+        return new ResponseEntity<>(cardService.create(card), HttpStatus.CREATED);
     }
 
 
-    @RequestMapping(value = "/cards", method = RequestMethod.GET)
-    @ResponseBody
-    private List<Card> getCardsByColumn(@RequestParam(value = "columnId", required = true) Long columnId) throws Exception {
-        return cardService.findCardsByColumn(columnId);
+    @GetMapping("/column/{columnId}")
+    private List<Card> getCardsByColumn(@PathVariable("columnId") Long columnId) {
+        return cardService.findByColumn(columnId);
     }
 
-    @RequestMapping(value = "/card/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    private Card getCardById(@PathVariable("id") Long id) throws Exception {
+    @GetMapping(value = "/{id}")
+    private Card getCardById(@PathVariable("id") Long id) {
         return cardService.findById(id);
     }
 
-    @RequestMapping(value = "/card/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    private HttpStatus deleteCard(@PathVariable("id") Long id) throws Exception {
-        cardService.deleteCard(id);
-        return HttpStatus.OK;
+    @DeleteMapping(value = "/{id}")
+    private void deleteCard(@PathVariable("id") Long id) {
+        cardService.deleteById(id);
     }
 
-    @RequestMapping(value = "/card/{id}", method = RequestMethod.PATCH)
-    @ResponseBody
-    private HttpStatus updateCard(@PathVariable("id") Long id, @RequestParam(value = "description", required = true) String description,
-                                  @RequestParam(value = "columnId", required = true) Long columnId) throws Exception {
-        Card newCard = cardService.findById(id);
-        Card oldCard = new Card();
-        oldCard.setColumn(newCard.getColumn());
-        Column column = columnService.findById(columnId);
-        newCard.setColumn(column);
-        newCard.setDescription(description);
-        cardService.updateCard(oldCard, newCard);
-        return HttpStatus.OK;
+    @PutMapping
+    private Card updateCard(@RequestBody Card card) {
+        return cardService.update(card);
     }
 
+    @PutMapping(value = "/card/move/{idColumnSource}/{idColumnTarget}")
+    private void updateCard(@RequestBody Card card, @PathVariable("idColumnSource") Long idColumnSource, @PathVariable("idColumnTarget") Long idColumnTarget) {
+        cardService.moveCard(card, idColumnSource, idColumnTarget);
+
+    }
 }

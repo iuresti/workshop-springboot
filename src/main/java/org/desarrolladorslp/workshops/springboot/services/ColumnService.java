@@ -1,14 +1,19 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
-import org.desarrolladorslp.workshops.springboot.models.Board;
-import org.desarrolladorslp.workshops.springboot.models.Column;
-
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.desarrolladorslp.workshops.springboot.models.Column;
+
 public interface ColumnService {
-    Column createColumn(Column column);
-    List<Column> findColumnsByBoard(Long boardId);
-    Column findById(Long id) throws Exception;
-    void deleteColumn(Long id) throws Exception;
-    Column updateColumn(Column column);
+    Column create(Column column) throws EntityNotFoundException, IllegalArgumentException;
+
+    List<Column> findByBoard(Long boardId);
+
+    Column findById(Long id) throws EntityNotFoundException;
+
+    void deleteById(Long id) throws EntityNotFoundException;
+
+    Column update(Column column);
 }
