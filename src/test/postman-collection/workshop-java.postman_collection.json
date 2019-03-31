@@ -1,0 +1,711 @@
+{
+	"info": {
+		"_postman_id": "baf6f39f-09d2-4c4f-9188-bd6f993ac196",
+		"name": "workshop-java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Add user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Luis\",\n\t\"email\": \"luis.uresti\"\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user/2",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by email",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user/email/ivan.uresti@gmail.com1",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"email",
+								"ivan.uresti@gmail.com1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user/1",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"name\":\"Ivan Israel\",\n\t\"email\": \"ivan.uresti@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/user",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "boards",
+			"item": [
+				{
+					"name": "Add board",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"workshop-session3\",\n\t\"user\": {\n\t\t\"id\": 1,\n\t\t\"name\": \"Luis\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/board",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"board"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update board",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 1,\n        \"name\": \"workshop-session2\",\n        \"user\": {\n        \t\"id\": 1\n        }\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/board",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"board"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List boards by user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/board/user/3",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"board",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List boards by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/board/2",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"board",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/board/2",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"board",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "columns",
+			"item": [
+				{
+					"name": "Add column",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Blockers\",\n\t\"board\": {\n\t\t\"id\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/column",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"column"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update column",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 18,\n    \"name\": \"Road blocks\",\n    \"board\": {\n        \"id\": 6\n    }\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/column",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"column"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List columns by board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/column/board/6",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"column",
+								"board",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get column by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/column/2",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"column",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/column/1",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"column",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cards",
+			"item": [
+				{
+					"name": "Add card",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\":\"Hacer ejercicio\",\n\t\"column\": {\n\t\t\"id\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update card",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 5,\n    \"description\": \"Hacer ejercicio\",\n    \"column\": {\n        \"id\": 5\n    }\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move card",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 4\n}"
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card/move/1/5",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card",
+								"move",
+								"1",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List cards by column",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card/column/5",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card",
+								"column",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get card by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card/5",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{workshop-url}}/api/card/15",
+							"protocol": "http",
+							"host": [
+								"{{workshop-url}}"
+							],
+							"path": [
+								"api",
+								"card",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
