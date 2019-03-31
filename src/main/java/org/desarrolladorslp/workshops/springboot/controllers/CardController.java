@@ -51,7 +51,7 @@ public class CardController {
         return cardService.update(card);
     }
 
-    @PutMapping(value = "/card/move/{idColumnSource}/{idColumnTarget}")
+    @PutMapping(value = "/move/{idColumnSource}/{idColumnTarget}")
     private void updateCard(@RequestBody Card card, @PathVariable("idColumnSource") Long idColumnSource, @PathVariable("idColumnTarget") Long idColumnTarget) {
         cardService.moveCard(card, idColumnSource, idColumnTarget);
 
