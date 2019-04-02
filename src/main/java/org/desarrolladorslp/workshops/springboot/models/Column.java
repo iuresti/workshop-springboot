@@ -24,7 +24,7 @@ public class Column {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @javax.persistence.Column(length = 30)
     private String name;
@@ -36,11 +36,11 @@ public class Column {
     @NotNull
     private Board board;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
