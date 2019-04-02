@@ -1,9 +1,12 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import static org.desarrolladorslp.workshops.springboot.config.RabbitMQConfiguration.BOARD_REQUESTS_EXCHANGE;
+
 import java.util.List;
 
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,8 +25,11 @@ public class BoardController {
 
     private BoardService boardService;
 
-    public BoardController(BoardService boardService) {
+    private RabbitTemplate rabbitTemplate;
+
+    public BoardController(BoardService boardService, RabbitTemplate rabbitTemplate) {
         this.boardService = boardService;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @PostMapping
@@ -53,8 +59,11 @@ public class BoardController {
     }
 
     @PostMapping(value = "/{id}")
-    private ResponseEntity<Board> duplicate(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(boardService.duplicate(id), HttpStatus.ACCEPTED);
+    private ResponseEntity duplicate(@PathVariable("id") Long id) {
+
+        rabbitTemplate.convertAndSend(BOARD_REQUESTS_EXCHANGE, "duplicate-request", id);
+
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
 }

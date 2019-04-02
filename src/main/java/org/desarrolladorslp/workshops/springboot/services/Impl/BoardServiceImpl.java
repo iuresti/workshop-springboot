@@ -79,6 +79,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public Board duplicate(Long id) {
 
         Board existentBoard = findById(id);
