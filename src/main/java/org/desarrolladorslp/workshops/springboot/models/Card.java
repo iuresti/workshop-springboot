@@ -19,7 +19,7 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @javax.persistence.Column(length = 2000)
     private String description;
@@ -31,11 +31,11 @@ public class Card {
     @NotNull
     private Column column;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

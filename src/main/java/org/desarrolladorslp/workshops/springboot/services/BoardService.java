@@ -14,4 +14,6 @@ public interface BoardService {
     void deleteById(Long id);
 
     Board update(Board board);
+
+    Board duplicate(Long id);
 }

@@ -52,4 +52,9 @@ public class BoardController {
         return new ResponseEntity<>(boardService.update(board), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/{id}")
+    private ResponseEntity<Board> duplicate(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(boardService.duplicate(id), HttpStatus.ACCEPTED);
+    }
+
 }

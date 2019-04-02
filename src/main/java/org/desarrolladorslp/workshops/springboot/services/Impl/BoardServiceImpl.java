@@ -6,8 +6,12 @@ import java.util.Objects;
 import javax.persistence.EntityNotFoundException;
 
 import org.desarrolladorslp.workshops.springboot.models.Board;
+import org.desarrolladorslp.workshops.springboot.models.Card;
+import org.desarrolladorslp.workshops.springboot.models.Column;
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.repository.BoardRepository;
+import org.desarrolladorslp.workshops.springboot.repository.CardRepository;
+import org.desarrolladorslp.workshops.springboot.repository.ColumnRepository;
 import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.springframework.stereotype.Service;
@@ -18,10 +22,17 @@ public class BoardServiceImpl implements BoardService {
 
     private BoardRepository boardRepository;
     private UserRepository userRepository;
+    private ColumnRepository columnRepository;
+    private CardRepository cardRepository;
 
-    public BoardServiceImpl(BoardRepository boardRepository, UserRepository userRepository) {
+    public BoardServiceImpl(BoardRepository boardRepository,
+                            UserRepository userRepository,
+                            ColumnRepository columnRepository,
+                            CardRepository cardRepository) {
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
+        this.columnRepository = columnRepository;
+        this.cardRepository = cardRepository;
     }
 
     @Override
@@ -65,5 +76,40 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board update(Board board) {
         return boardRepository.save(board);
+    }
+
+    @Override
+    public Board duplicate(Long id) {
+
+        Board existentBoard = findById(id);
+        Board duplicatedBoard = new Board();
+
+        duplicatedBoard.setName("COPY " + existentBoard.getName());
+        duplicatedBoard.setUser(existentBoard.getUser());
+        duplicatedBoard.setId(null);
+
+        boardRepository.save(duplicatedBoard);
+
+        List<Column> columns = columnRepository.findColumnsByBoard(existentBoard);
+
+        columns.forEach(column -> {
+            Column duplicatedColumn = new Column();
+
+            duplicatedColumn.setBoard(duplicatedBoard);
+            duplicatedColumn.setName(column.getName());
+
+            columnRepository.save(duplicatedColumn);
+
+            cardRepository.findByColumn(column.getId()).forEach(card -> {
+                Card duplicatedCard = new Card();
+
+                duplicatedCard.setColumn(duplicatedColumn);
+                duplicatedCard.setDescription(card.getDescription());
+
+                cardRepository.save(duplicatedCard);
+            });
+        });
+
+        return duplicatedBoard;
     }
 }
