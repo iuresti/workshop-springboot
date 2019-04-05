@@ -7,11 +7,19 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     properties:
+      show_sql: true
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
 server:
   port: ${PORT:5555}
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
