@@ -24,44 +24,52 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
 
     private BoardService boardService;
+//
+//    private RabbitTemplate rabbitTemplate;
 
-    private RabbitTemplate rabbitTemplate;
-
-    public BoardController(BoardService boardService, RabbitTemplate rabbitTemplate) {
+    public BoardController(BoardService boardService
+//                           RabbitTemplate rabbitTemplate
+    ) {
         this.boardService = boardService;
-        this.rabbitTemplate = rabbitTemplate;
+//        this.rabbitTemplate = rabbitTemplate;
     }
 
+    // User/Admin Role
     @PostMapping
     private ResponseEntity<Board> create(@RequestBody Board board) {
         return new ResponseEntity<>(boardService.create(board), HttpStatus.CREATED);
     }
 
+    // Admin Role - Boards for any user
     @GetMapping(value = "/user/{userId}")
     private ResponseEntity<List<Board>> getByUser(@PathVariable Long userId) {
         return new ResponseEntity<>(boardService.findByUser(userId), HttpStatus.OK);
     }
 
+    // User/Admin Role - Board must belong to current user
     @GetMapping(value = "/{id}")
     private ResponseEntity<Board> getById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(boardService.findById(id), HttpStatus.OK);
     }
 
+    // User/Admin Role - Board must belong to current user
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     private void deleteById(@PathVariable("id") Long id) {
         boardService.deleteById(id);
     }
 
+    // User/Admin Role - Board must belong to current user
     @PutMapping
     private ResponseEntity<Board> updateBoard(@RequestBody Board board) {
         return new ResponseEntity<>(boardService.update(board), HttpStatus.OK);
     }
 
+    // User/Admin Role - Board must belong to current user
     @PostMapping(value = "/{id}")
     private ResponseEntity duplicate(@PathVariable("id") Long id) {
 
-        rabbitTemplate.convertAndSend(BOARD_REQUESTS_EXCHANGE, "duplicate-request", id);
+//        rabbitTemplate.convertAndSend(BOARD_REQUESTS_EXCHANGE, "duplicate-request", id);
 
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
