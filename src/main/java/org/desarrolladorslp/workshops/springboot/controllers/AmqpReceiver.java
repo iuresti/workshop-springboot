@@ -3,7 +3,7 @@ package org.desarrolladorslp.workshops.springboot.controllers;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class AmqpReceiver {
 
     private BoardService boardService;
