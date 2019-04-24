@@ -2,6 +2,7 @@ package org.desarrolladorslp.workshops.springboot.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.desarrolladorslp.workshops.springboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,30 @@ public final class TokenProvider {
             log.info("Invalid argument for JWT token");
         }
         return false;
+    }
+
+    public String generateToken(User user) {
+
+        final String authorities = user
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        final Date issuedAt = new Date();
+        final Date expiration = new Date(issuedAt.getTime() + (1000*jwtProperties.getExpireLength()));
+
+        return Jwts.builder()
+                .setHeaderParam("alg", SIGNATURE_ALGORITHM.getValue())
+                .setHeaderParam("typ", "JWT")
+                .setIssuer(jwtProperties.getIssuer())
+                .setSubject(user.getUsername())
+                .setIssuedAt(issuedAt)
+                .setExpiration(expiration)
+                .claim(AUTHORITIES_KEY, authorities)
+                .signWith(SIGNATURE_ALGORITHM, jwtProperties.getSecretKey())
+                .compact();
+
     }
 
     public String refreshToken(String token) {

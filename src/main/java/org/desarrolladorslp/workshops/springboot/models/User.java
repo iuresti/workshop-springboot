@@ -1,17 +1,28 @@
 package org.desarrolladorslp.workshops.springboot.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,31 +32,49 @@ public class User {
     @Email
     private String email;
 
+    @Column(unique = true, length = 85)
+    @NotEmpty
+    private String username;
+
     @Column(length = 300)
     @NotEmpty
     private String name;
 
-    public Long getId() {
-        return id;
+    @NotEmpty
+    @JsonIgnore
+    private String password;
+
+    @NotNull
+    private boolean enabled;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_by_user",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return enabled;
     }
 
-    public String getEmail() {
-        return email;
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return enabled;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return enabled;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
