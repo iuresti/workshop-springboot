@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public final class TokenProvider {
+public class TokenProvider {
 
     private final JwtProperties jwtProperties;
 

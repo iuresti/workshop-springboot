@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
-public final class JwtFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
     private final RequestUtils requestUtils;

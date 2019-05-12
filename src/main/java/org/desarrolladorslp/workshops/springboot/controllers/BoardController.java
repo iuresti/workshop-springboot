@@ -4,6 +4,7 @@ import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
+import org.desarrolladorslp.workshops.springboot.validation.ValidationCreate;
 import org.desarrolladorslp.workshops.springboot.validation.ValidationUpdate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,9 @@ public class BoardController {
 
     // User/Admin Role
     @PostMapping
-    public ResponseEntity<Board> create(@Valid @RequestBody BoardForm boardForm, Principal principal) {
+    public ResponseEntity<Board> create(
+            @Validated(ValidationCreate.class) @RequestBody BoardForm boardForm,
+            Principal principal) {
         boardForm.setUserId(currentUserId(principal.getName()));
         return new ResponseEntity<>(boardService.create(boardForm), HttpStatus.CREATED);
     }

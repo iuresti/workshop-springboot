@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findBoardsByUser(User user);
     Optional<Board> findByIdAndUserId(Long id, Long userId);
+    boolean existsByIdAndUserId(Long boardId, Long userId);
 }

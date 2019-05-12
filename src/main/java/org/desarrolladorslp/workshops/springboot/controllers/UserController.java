@@ -27,20 +27,20 @@ public class UserController {
     }
 
     // Admin Role
-    @GetMapping(value = "/email/{email}")
+    @GetMapping(value = "/email/{email}/")
     public ResponseEntity<User> getByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 
     // Admin Role
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     // Admin Role
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity delete(@PathVariable("id") Long id) {
 
         userService.deleteById(id);
 

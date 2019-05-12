@@ -2,6 +2,7 @@ package org.desarrolladorslp.workshops.springboot.controllers;
 
 import org.desarrolladorslp.workshops.springboot.exceptions.EmailAlreadyRegisteredException;
 import org.desarrolladorslp.workshops.springboot.exceptions.InternalServerException;
+import org.desarrolladorslp.workshops.springboot.exceptions.ResourceNotFoundForUserException;
 import org.desarrolladorslp.workshops.springboot.exceptions.UsernameAlreadyRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,6 +73,17 @@ public class ErrorHandler {
         response.put(TIMESTAMP_FIELD, LocalDateTime.now().format(formatter));
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ResourceNotFoundForUserException.class)
+    public ResponseEntity<Map<String, String>> operationNotAllowedForUserException(
+            ResourceNotFoundForUserException ex) {
+        Map<String, String> response = new HashMap<>();
+
+        response.put(MESSAGE_FIELD, ex.getMessage());
+        response.put(TIMESTAMP_FIELD, LocalDateTime.now().format(formatter));
+
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
 }

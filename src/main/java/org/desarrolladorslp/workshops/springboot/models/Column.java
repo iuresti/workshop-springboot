@@ -14,12 +14,14 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
 
 @Entity
 @Table(name = "columns",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"board_id", "name"})
         })
+@Data
 public class Column {
 
     @Id
