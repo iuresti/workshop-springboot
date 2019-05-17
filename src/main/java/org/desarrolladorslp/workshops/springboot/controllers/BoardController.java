@@ -6,14 +6,12 @@ import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.desarrolladorslp.workshops.springboot.validation.ValidationCreate;
 import org.desarrolladorslp.workshops.springboot.validation.ValidationUpdate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -25,13 +23,9 @@ public class BoardController {
     private BoardService boardService;
     private UserService userService;
 
-//    private RabbitTemplate rabbitTemplate;
-
     public BoardController(BoardService boardService,
-//                           RabbitTemplate rabbitTemplate,
                            UserService userService) {
         this.boardService = boardService;
-        //        this.rabbitTemplate = rabbitTemplate;
         this.userService = userService;
     }
 
@@ -89,7 +83,6 @@ public class BoardController {
     public ResponseEntity duplicate(@PathVariable("id") Long id, Principal principal) {
         boardService.findByIdAndUserId(id, currentUserId(principal.getName()));
         // If no exception was thrown by the previous line, it is safe to proceed.
-//        rabbitTemplate.convertAndSend(BOARD_REQUESTS_EXCHANGE, "duplicate-request", id);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 

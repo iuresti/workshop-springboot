@@ -4,10 +4,6 @@ spring:
     url: jdbc:h2:mem:workshop
     #url: jdbc:h2:file:~/workshop.db;DB_CLOSE_ON_EXIT=FALSE;
     driver-class-name: org.h2.Driver
-    #url: jdbc:postgresql://localhost:5432/kanban
-    #username: postgres
-    #password: postgres
-    #driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       show_sql: true

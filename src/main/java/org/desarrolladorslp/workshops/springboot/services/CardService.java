@@ -6,12 +6,7 @@ import org.desarrolladorslp.workshops.springboot.forms.CardForm;
 import org.desarrolladorslp.workshops.springboot.models.Card;
 
 public interface CardService {
-//    Card create(Card card);
-//    List<Card> findByColumn(Long columnId);
     Card findById(Long id);
-//    void deleteById(Long id);
-//    Card update(Card card);
-//    void moveCard(Card card, Long idColumnSource, Long idColumnTarget);
 
     boolean existsCardForUser(Long cardId, Long userId);
     Card createCardForUser(CardForm cardForm, Long userId);
