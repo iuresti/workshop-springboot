@@ -1,10 +1,9 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/kanban
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:workshop
+    #url: jdbc:h2:file:~/workshop.db;DB_CLOSE_ON_EXIT=FALSE;
+    driver-class-name: org.h2.Driver
   jpa:
     properties:
       show_sql: true
@@ -14,8 +13,11 @@ spring:
             non_contextual_creation: true
     hibernate:
       ddl-auto: none
+  h2:
+    console:
+      enabled: true
 server:
-  port: ${PORT:5555}
+  port: ${PORT:8080}
 
 logging:
   level:
@@ -23,3 +25,10 @@ logging:
       hibernate:
         SQL: DEBUG
         type: TRACE
+
+security:
+  jwt:
+    token:
+      secret-key: nSU1A70Dk3AlJbw69LyKDtFLWhcAEVMsBeFmDDjDjzkBCbQWcKEa86BudY56IrWyYAegPAZNwNislqlrTdxiuw==
+      expire-length: 1800 # seconds
+      issuer: workshop-spring-boot

@@ -1,10 +1,10 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
-import java.util.List;
+import org.desarrolladorslp.workshops.springboot.forms.RegistrationForm;
+import org.desarrolladorslp.workshops.springboot.models.User;
 
 import javax.persistence.EntityNotFoundException;
-
-import org.desarrolladorslp.workshops.springboot.models.User;
+import java.util.List;
 
 
 public interface UserService {
@@ -16,7 +16,11 @@ public interface UserService {
 
     User findById(Long id) throws EntityNotFoundException;
 
+    User findByUsername(String username);
+
     void deleteById(Long id) throws EntityNotFoundException;
 
     User updateUser(User user);
+
+    User createUser(RegistrationForm registrationForm);
 }

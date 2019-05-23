@@ -1,10 +1,6 @@
-package org.desarrolladorslp.workshops.springboot.services.Impl;
+package org.desarrolladorslp.workshops.springboot.services.impl;
 
-import java.util.List;
-import java.util.Objects;
-
-import javax.persistence.EntityNotFoundException;
-
+import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.Card;
 import org.desarrolladorslp.workshops.springboot.models.Column;
@@ -16,6 +12,10 @@ import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -37,15 +37,17 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public Board create(Board board) {
-        if (Objects.isNull(board.getUser())) {
-            throw new IllegalArgumentException("User required");
+    public Board create(BoardForm boardForm) {
+        if (Objects.isNull(boardForm.getUserId())) {
+            throw new IllegalArgumentException("User id required");
         }
-        User user = userRepository.findById(board.getUser().getId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findById(boardForm.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        board.setUser(user);
+        Board newBoard = new Board();
+        newBoard.setName(boardForm.getName());
+        newBoard.setUser(user);
 
-        return boardRepository.save(board);
+        return boardRepository.save(newBoard);
     }
 
     @Override
@@ -67,6 +69,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Board findByIdAndUserId(Long id, Long userId) {
+        return boardRepository.findByIdAndUserId(id, userId).orElseThrow(
+                () -> new EntityNotFoundException("Board for User not found"));
+    }
+
+    @Override
     @Transactional
     public void deleteById(Long id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Board not found"));
@@ -74,8 +82,10 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board update(Board board) {
-        return boardRepository.save(board);
+    public Board update(BoardForm boardForm) {
+        Board toUpdate = findById(boardForm.getId());
+        toUpdate.setName(boardForm.getName());
+        return boardRepository.save(toUpdate);
     }
 
     @Override
