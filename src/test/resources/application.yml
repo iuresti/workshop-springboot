@@ -1,0 +1,31 @@
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:workshop
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      show_sql: true
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+
+security:
+  jwt:
+    token:
+      secret-key: nSU1A70Dk3AlJbw69LyKDtFLWhcAEVMsBeFmDDjDjzkBCbQWcKEa86BudY56IrWyYAegPAZNwNislqlrTdxiuw==
+      expire-length: 1800 # seconds
+      issuer: workshop-spring-boot-test
