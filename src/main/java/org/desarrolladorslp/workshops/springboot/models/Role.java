@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jsondoc.core.annotation.ApiObject;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiObject(show = false)
 public class Role implements GrantedAuthority {
 
     @Id

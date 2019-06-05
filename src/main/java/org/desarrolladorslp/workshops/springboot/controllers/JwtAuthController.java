@@ -6,6 +6,9 @@ import org.desarrolladorslp.workshops.springboot.security.RequestUtils;
 import org.desarrolladorslp.workshops.springboot.security.jwt.JwtProperties;
 import org.desarrolladorslp.workshops.springboot.security.jwt.JwtTokenVM;
 import org.desarrolladorslp.workshops.springboot.security.jwt.TokenProvider;
+import org.jsondoc.core.annotation.Api;
+import org.jsondoc.core.annotation.ApiAuthToken;
+import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +24,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api")
+@Api(name="JWT Resource", description = "Administracion de tokens JWT.")
 public class JwtAuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -39,6 +43,7 @@ public class JwtAuthController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @ApiMethod(description = "Generar token JWT de usuario")
     public ResponseEntity<JwtTokenVM> authenticate(@Valid @RequestBody LoginForm loginForm) {
 
         // Perform authentication
@@ -57,6 +62,8 @@ public class JwtAuthController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
+    @ApiMethod(description = "Refrescar token JWT de usuario")
+    @ApiAuthToken(scheme = "Bearer")
     public ResponseEntity<JwtTokenVM> refreshToken(HttpServletRequest httpServletRequest) {
 
         final String currentToken = requestUtils.getToken(httpServletRequest);
