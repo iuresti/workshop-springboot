@@ -32,3 +32,10 @@ security:
       secret-key: nSU1A70Dk3AlJbw69LyKDtFLWhcAEVMsBeFmDDjDjzkBCbQWcKEa86BudY56IrWyYAegPAZNwNislqlrTdxiuw==
       expire-length: 1800 # seconds
       issuer: workshop-spring-boot
+
+# JSONDoc configuration
+jsondoc:
+  version: 1.0
+  basePath: http://localhost:8080
+  packages:
+    - org.desarrolladorslp.workshops.springboot

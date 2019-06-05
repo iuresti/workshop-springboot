@@ -63,8 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/api/**");
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/api/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/**/*.css", "/**/*.js", "/**/*.map", "/**/*.html");
     }
 
     @Override
@@ -86,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
+                .antMatchers("/jsondoc").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
