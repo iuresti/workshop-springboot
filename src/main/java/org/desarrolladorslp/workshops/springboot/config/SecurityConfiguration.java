@@ -19,10 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -37,10 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityConfiguration(UserDetailsService userDetailsService,
                                  TokenProvider tokenProvider,
                                  RequestUtils requestUtils,
-                                 RestAuthenticationEntryPoint entryPoint){
+                                 RestAuthenticationEntryPoint entryPoint) {
         this.userDetailsService = userDetailsService;
         this.tokenProvider = tokenProvider;
-        this.requestUtils= requestUtils;
+        this.requestUtils = requestUtils;
         this.entryPoint = entryPoint;
     }
 
@@ -90,21 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
-                .cors().configurationSource(corsConfigurationSource());
-    }
-
-    private CorsConfigurationSource corsConfigurationSource() {
-        CorsConfigurationSource configurationSource =
-                request -> {
-                    CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedHeaders(Collections.singletonList("*"));
-                    config.setAllowedMethods(Collections.singletonList("*"));
-                    config.setAllowedOrigins(Collections.singletonList("*"));
-                    config.setAllowCredentials(true);
-                    return config;
-                };
-        return configurationSource;
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     private JwtFilter jwtFilter() {

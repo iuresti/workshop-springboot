@@ -19,6 +19,7 @@ import java.util.List;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @Api(name="User Resource", description = "Administracion de Users.")
 @ApiAuthToken(scheme = "Bearer", roles = "ADMIN")
+@CrossOrigin(allowCredentials = "true")
 public class UserController {
 
     private UserService userService;

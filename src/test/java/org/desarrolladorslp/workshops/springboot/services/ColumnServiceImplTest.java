@@ -11,7 +11,6 @@ import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.impl.ColumnServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -134,7 +133,7 @@ public class ColumnServiceImplTest {
     public void it_should_throw_an_exception_when_creating_a_new_column_with_a_non_associated_board_id() {
         // given
         ColumnForm columnForm = new ColumnForm();
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("Column01");
 
         User user01 = new User();
@@ -157,7 +156,7 @@ public class ColumnServiceImplTest {
     public void it_should_create_a_column_when_given_an_associated_board_id() {
         // given
         ColumnForm columnForm = new ColumnForm();
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("Column01");
 
         User user01 = new User();
@@ -369,7 +368,7 @@ public class ColumnServiceImplTest {
         // given
         ColumnForm columnForm = new ColumnForm();
         columnForm.setId(1L);
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("updatedColumn01");
 
         User user01 = new User();
@@ -412,7 +411,7 @@ public class ColumnServiceImplTest {
         // given
         ColumnForm columnForm = new ColumnForm();
         columnForm.setId(1L);
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("updatedColumn01");
 
         User user01 = new User();

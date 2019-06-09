@@ -1,8 +1,7 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.desarrolladorslp.workshops.springboot.controllers.ColumnController;
-import org.desarrolladorslp.workshops.springboot.controllers.ErrorHandler;
+
 import org.desarrolladorslp.workshops.springboot.exceptions.ResourceNotFoundForUserException;
 import org.desarrolladorslp.workshops.springboot.forms.ColumnForm;
 import org.desarrolladorslp.workshops.springboot.models.Column;
@@ -66,7 +65,7 @@ public class ColumnControllerTest {
         // given
         ColumnForm columnForm = new ColumnForm();
         columnForm.setName("Column01");
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
 
         User user01 = new User().builder().id(1L).username("user01").build();
 
@@ -75,7 +74,7 @@ public class ColumnControllerTest {
         dbColumn01.setName("Column01");
 
         ColumnForm toPersistForm = new ColumnForm();
-        toPersistForm.setBoardId(1L);
+        toPersistForm.setBoard(1L);
         toPersistForm.setName("Column01");
 
         given(principal.getName()).willReturn(user01.getUsername());
@@ -139,7 +138,7 @@ public class ColumnControllerTest {
 
         // when
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/column/board/{boardId}", 1L)
+                MockMvcRequestBuilders.get("/api/column/board/{board}", 1L)
                         .principal(principal)
         ).andReturn().getResponse();
 
@@ -166,7 +165,7 @@ public class ColumnControllerTest {
 
         // when
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/column/board/{boardId}", 1L)
+                MockMvcRequestBuilders.get("/api/column/board/{board}", 1L)
                         .principal(principal)
         ).andReturn().getResponse();
 
@@ -311,7 +310,7 @@ public class ColumnControllerTest {
     public void it_should_return_http_200_when_updating_column_with_a_valid_column_form_for_user() throws Exception {
         // given
         ColumnForm columnForm = new ColumnForm();
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("Column01");
         columnForm.setId(1L);
 
@@ -354,7 +353,7 @@ public class ColumnControllerTest {
     public void it_should_return_http_409_when_updating_column_with_column_id_not_associated_to_user() throws Exception {
         // given
         ColumnForm columnForm = new ColumnForm();
-        columnForm.setBoardId(1L);
+        columnForm.setBoard(1L);
         columnForm.setName("Column01");
         columnForm.setId(1L);
 

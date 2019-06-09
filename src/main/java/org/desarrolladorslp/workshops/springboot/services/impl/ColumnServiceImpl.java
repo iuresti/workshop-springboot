@@ -57,11 +57,11 @@ public class ColumnServiceImpl implements ColumnService {
 
         Objects.requireNonNull(columnForm, "columnForm is required");
         Objects.requireNonNull(columnForm.getName(), "columnForm#name is required");
-        Objects.requireNonNull(columnForm.getBoardId(), "columnForm#boardId is required");
+        Objects.requireNonNull(columnForm.getBoard(), "columnForm#board is required");
 
         Objects.requireNonNull(userId, "userId is required");
 
-        Board board = findBoardForUser(columnForm.getBoardId(), userId);
+        Board board = findBoardForUser(columnForm.getBoard(), userId);
         Column column = new Column();
         column.setName(columnForm.getName());
         column.setBoard(board);
@@ -71,7 +71,7 @@ public class ColumnServiceImpl implements ColumnService {
     @Override
     @Transactional(readOnly = true)
     public List<Column> findColumnsByBoardForUser(Long boardId, Long userId) {
-        Objects.requireNonNull(boardId, "boardId is required");
+        Objects.requireNonNull(boardId, "board is required");
         Objects.requireNonNull(userId, "userId is required");
 
         Board board = findBoardForUser(boardId, userId);
@@ -114,7 +114,7 @@ public class ColumnServiceImpl implements ColumnService {
         Objects.requireNonNull(columnForm, "columnForm is required");
         Objects.requireNonNull(columnForm.getId(), "columnForm#id is required");
         Objects.requireNonNull(columnForm.getName(), "columnForm#name is required");
-        Objects.requireNonNull(columnForm.getBoardId(), "columnForm#boardId is required");
+        Objects.requireNonNull(columnForm.getBoard(), "columnForm#board is required");
 
         Objects.requireNonNull(userId, "userId is required");
 

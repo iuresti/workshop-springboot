@@ -1,5 +1,8 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.desarrolladorslp.workshops.springboot.forms.LoginForm;
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.security.RequestUtils;
@@ -14,17 +17,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping(value = "/api")
-@Api(name="JWT Resource", description = "Administracion de tokens JWT.")
+@Api(name = "JWT Resource", description = "Administracion de tokens JWT.")
+@CrossOrigin
 public class JwtAuthController {
 
     private final AuthenticationManager authenticationManager;

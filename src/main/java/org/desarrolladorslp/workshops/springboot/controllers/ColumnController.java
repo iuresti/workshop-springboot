@@ -24,6 +24,7 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 @Api(name="Column Resource", description = "Administracion de Columns de usuario.")
 @ApiAuthToken(scheme = "Bearer")
+@CrossOrigin(allowCredentials = "true")
 public class ColumnController {
 
     private ColumnService columnService;
@@ -47,11 +48,11 @@ public class ColumnController {
     }
 
     // User/Admin Role - Board must belong to current user
-    // findColumnsByBoardForUser(boardId, userId) -> List<Column>
-    @GetMapping("/board/{boardId}")
+    // findColumnsByBoardForUser(board, userId) -> List<Column>
+    @GetMapping("/board/{board}")
     @ApiMethod(description = "Recuperar Columns para la Board especificada.")
     public ResponseEntity<List<Column>> getByBoard(
-            @ApiPathParam(name = "boardId", description = "Id de Board") @PathVariable("boardId") Long boardId,
+            @ApiPathParam(name = "board", description = "Id de Board") @PathVariable("board") Long boardId,
             Principal principal) {
         return new ResponseEntity<>(
                 columnService.findColumnsByBoardForUser(

@@ -24,6 +24,7 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 @Api(name="Board Resource", description = "Administracion de Boards de usuario.")
 @ApiAuthToken(scheme = "Bearer")
+@CrossOrigin(allowCredentials = "true")
 public class BoardController {
 
     private BoardService boardService;

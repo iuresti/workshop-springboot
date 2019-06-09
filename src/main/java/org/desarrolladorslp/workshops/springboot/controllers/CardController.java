@@ -24,6 +24,7 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 @Api(name="Card Resource", description = "Administracion de Cards de usuario.")
 @ApiAuthToken(scheme = "Bearer")
+@CrossOrigin(allowCredentials = "true")
 public class CardController {
 
     private CardService cardService;

@@ -92,7 +92,7 @@ public class SimpleOperationsServiceImpl implements SimpleOperationsService {
     @Override
     @Transactional
     public Column createColumnForUser(ColumnForm columnForm, Long userId) {
-        Board board = findBoardForUser(columnForm.getBoardId(), userId);
+        Board board = findBoardForUser(columnForm.getBoard(), userId);
         Column column = new Column();
         column.setName(columnForm.getName());
         column.setBoard(board);

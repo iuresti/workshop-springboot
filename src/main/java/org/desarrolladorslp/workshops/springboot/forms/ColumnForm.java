@@ -24,5 +24,5 @@ public class ColumnForm implements Serializable {
     private String name;
     @NotNull(groups = ValidationCreate.class)
     @ApiObjectField(description = "Id de Board")
-    private Long boardId;
+    private Long board;
 }
