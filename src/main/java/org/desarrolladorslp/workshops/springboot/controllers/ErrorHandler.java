@@ -1,5 +1,12 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.exceptions.EmailAlreadyRegisteredException;
 import org.desarrolladorslp.workshops.springboot.exceptions.InternalServerException;
 import org.desarrolladorslp.workshops.springboot.exceptions.ResourceNotFoundForUserException;
@@ -8,12 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 
 @ControllerAdvice
 public class ErrorHandler {

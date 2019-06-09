@@ -1,5 +1,15 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.User;
@@ -12,15 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 
 public class BoardServiceImplTest {
 

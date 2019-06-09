@@ -1,9 +1,9 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
-
-import java.util.List;
 
 public interface BoardService {
     Board create(BoardForm board);

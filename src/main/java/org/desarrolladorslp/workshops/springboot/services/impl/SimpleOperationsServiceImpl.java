@@ -1,6 +1,9 @@
 package org.desarrolladorslp.workshops.springboot.services.impl;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.exceptions.ResourceNotFoundForUserException;
 import org.desarrolladorslp.workshops.springboot.forms.CardForm;
 import org.desarrolladorslp.workshops.springboot.forms.ColumnForm;
@@ -16,8 +19,7 @@ import org.desarrolladorslp.workshops.springboot.services.SimpleOperationsServic
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
@@ -67,7 +69,7 @@ public class SimpleOperationsServiceImpl implements SimpleOperationsService {
     @Override
     @Transactional(readOnly = true)
     public Board findBoardForUser(Long boardId, Long userId) {
-        if(existsBoardForUser(boardId, userId)) {
+        if (existsBoardForUser(boardId, userId)) {
             return this.findBoardById(boardId);
         }
         // Column not found for given userId
@@ -109,7 +111,7 @@ public class SimpleOperationsServiceImpl implements SimpleOperationsService {
     @Override
     @Transactional(readOnly = true)
     public Column findColumnForUser(Long columnId, Long userId) {
-        if(existsColumnForUser(columnId, userId)) {
+        if (existsColumnForUser(columnId, userId)) {
             return this.findColumnById(columnId);
         }
         // Column not found for given userId.
@@ -172,7 +174,7 @@ public class SimpleOperationsServiceImpl implements SimpleOperationsService {
     @Override
     @Transactional(readOnly = true)
     public Card findCardForUser(Long cardId, Long userId) {
-        if(existsCardForUser(cardId, userId)) {
+        if (existsCardForUser(cardId, userId)) {
             return findCardById(cardId);
         }
         // Card not found for given userId.

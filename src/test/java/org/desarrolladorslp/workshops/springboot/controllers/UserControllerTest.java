@@ -1,6 +1,15 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.verify;
+
+import java.util.Arrays;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.junit.Before;
@@ -16,13 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.persistence.EntityNotFoundException;
-
-import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.verify;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {

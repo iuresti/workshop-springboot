@@ -1,5 +1,13 @@
 package org.desarrolladorslp.workshops.springboot.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.Card;
 import org.desarrolladorslp.workshops.springboot.models.Column;
@@ -11,12 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

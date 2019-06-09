@@ -1,9 +1,9 @@
 package org.desarrolladorslp.workshops.springboot.security;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Component
 public final class RequestUtils {

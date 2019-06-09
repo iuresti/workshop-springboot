@@ -1,6 +1,10 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+
 import org.desarrolladorslp.workshops.springboot.forms.LoginForm;
 import org.desarrolladorslp.workshops.springboot.models.User;
 import org.desarrolladorslp.workshops.springboot.security.jwt.JwtProperties;
@@ -22,10 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JwtAuthControllerTest {

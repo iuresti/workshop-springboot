@@ -84,7 +84,7 @@ public class ColumnServiceImpl implements ColumnService {
         Objects.requireNonNull(columnId, "columnId is required");
         Objects.requireNonNull(userId, "userId is required");
 
-        if(existsColumnForUser(columnId, userId)) {
+        if (existsColumnForUser(columnId, userId)) {
             return this.findById(columnId);
         }
         // Column not found for given userId.
@@ -144,7 +144,7 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Transactional(readOnly = true)
     private Board findBoardForUser(Long boardId, Long userId) {
-        if(existsBoardForUser(boardId, userId)) {
+        if (existsBoardForUser(boardId, userId)) {
             return findBoardById(boardId);
         }
         throw new ResourceNotFoundForUserException(

@@ -1,5 +1,17 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.exceptions.EmailAlreadyRegisteredException;
 import org.desarrolladorslp.workshops.springboot.exceptions.InternalServerException;
 import org.desarrolladorslp.workshops.springboot.exceptions.UsernameAlreadyRegisteredException;
@@ -15,17 +27,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 
 public class UserServiceImplTest {
 

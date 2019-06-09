@@ -1,5 +1,7 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import javax.validation.Valid;
+
 import org.desarrolladorslp.workshops.springboot.forms.RegistrationForm;
 import org.desarrolladorslp.workshops.springboot.services.UserService;
 import org.jsondoc.core.annotation.Api;
@@ -7,13 +9,15 @@ import org.jsondoc.core.annotation.ApiError;
 import org.jsondoc.core.annotation.ApiErrors;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api")
-@Api(name="Account Resource", description = "Administracion de cuenta de usuario.")
+@Api(name = "Account Resource", description = "Administracion de cuenta de usuario.")
 public class AccountController {
 
     private final UserService userService;

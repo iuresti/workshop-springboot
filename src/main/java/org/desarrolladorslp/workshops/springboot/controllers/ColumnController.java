@@ -1,5 +1,8 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.forms.ColumnForm;
 import org.desarrolladorslp.workshops.springboot.models.Column;
 import org.desarrolladorslp.workshops.springboot.services.ColumnService;
@@ -14,17 +17,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/column")
 @PreAuthorize("isAuthenticated()")
-@Api(name="Column Resource", description = "Administracion de Columns de usuario.")
+@Api(name = "Column Resource", description = "Administracion de Columns de usuario.")
 @ApiAuthToken(scheme = "Bearer")
-@CrossOrigin(allowCredentials = "true")
 public class ColumnController {
 
     private ColumnService columnService;

@@ -1,10 +1,11 @@
 package org.desarrolladorslp.workshops.springboot.security.jwt;
 
+import org.jsondoc.core.annotation.ApiObject;
+import org.jsondoc.core.annotation.ApiObjectField;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jsondoc.core.annotation.ApiObject;
-import org.jsondoc.core.annotation.ApiObjectField;
 
 @Data
 @AllArgsConstructor

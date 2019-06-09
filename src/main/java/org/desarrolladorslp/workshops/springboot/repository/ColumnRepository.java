@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ColumnRepository extends JpaRepository<Column, Long> {
     List<Column> findColumnsByBoard(Board board);
+
     @Query(value = "SELECT count(column)>0 FROM Column column " +
             "WHERE column.id = ?1 AND column.board.user.id = ?2")
     boolean existsByIdAndUserId(Long columnId, Long userId);

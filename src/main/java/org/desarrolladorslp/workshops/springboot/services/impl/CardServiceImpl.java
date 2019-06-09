@@ -1,13 +1,11 @@
 package org.desarrolladorslp.workshops.springboot.services.impl;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.desarrolladorslp.workshops.springboot.exceptions.ResourceNotFoundForUserException;
 import org.desarrolladorslp.workshops.springboot.forms.CardForm;
-import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.Card;
 import org.desarrolladorslp.workshops.springboot.models.Column;
 import org.desarrolladorslp.workshops.springboot.models.User;
@@ -67,7 +65,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional(readOnly = true)
     public Card findCardForUser(Long cardId, Long userId) {
-        if(existsCardForUser(cardId, userId)) {
+        if (existsCardForUser(cardId, userId)) {
             return this.findById(cardId);
         }
         // Card not found for given userId.
@@ -75,7 +73,6 @@ public class CardServiceImpl implements CardService {
                 String.format("Card #%d not found for User #%d", cardId, userId));
     }
 
-    @Transactional
     private void deleteCardById(Long id) {
         this.findById(id);
         cardRepository.deleteById(id);
@@ -126,7 +123,7 @@ public class CardServiceImpl implements CardService {
 
     @Transactional(readOnly = true)
     private Column findColumnForUser(Long columnId, Long userId) {
-        if(existsColumnForUser(columnId, userId)) {
+        if (existsColumnForUser(columnId, userId)) {
             return findColumnById(columnId);
         }
         throw new ResourceNotFoundForUserException(

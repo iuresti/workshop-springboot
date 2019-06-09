@@ -1,10 +1,11 @@
 package org.desarrolladorslp.workshops.springboot.services;
 
-import org.desarrolladorslp.workshops.springboot.forms.RegistrationForm;
-import org.desarrolladorslp.workshops.springboot.models.User;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
+
+import org.desarrolladorslp.workshops.springboot.forms.RegistrationForm;
+import org.desarrolladorslp.workshops.springboot.models.User;
 
 
 public interface UserService {

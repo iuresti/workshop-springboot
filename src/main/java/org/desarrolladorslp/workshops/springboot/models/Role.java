@@ -1,15 +1,22 @@
 package org.desarrolladorslp.workshops.springboot.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.jsondoc.core.annotation.ApiObject;
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jsondoc.core.annotation.ApiObject;
-import org.springframework.security.core.GrantedAuthority;
-
-import javax.persistence.Column;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "roles")
@@ -26,7 +33,7 @@ public class Role implements GrantedAuthority {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name="name")
+    @Column(name = "name")
     private RoleName name;
 
     private String description;

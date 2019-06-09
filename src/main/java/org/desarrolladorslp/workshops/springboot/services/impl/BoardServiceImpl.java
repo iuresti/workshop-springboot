@@ -1,5 +1,10 @@
 package org.desarrolladorslp.workshops.springboot.services.impl;
 
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.models.Card;
@@ -12,10 +17,6 @@ import org.desarrolladorslp.workshops.springboot.repository.UserRepository;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 public class BoardServiceImpl implements BoardService {

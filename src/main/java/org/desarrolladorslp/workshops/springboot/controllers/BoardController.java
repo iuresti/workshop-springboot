@@ -1,5 +1,8 @@
 package org.desarrolladorslp.workshops.springboot.controllers;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.desarrolladorslp.workshops.springboot.forms.BoardForm;
 import org.desarrolladorslp.workshops.springboot.models.Board;
 import org.desarrolladorslp.workshops.springboot.services.BoardService;
@@ -14,17 +17,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/board")
 @PreAuthorize("isAuthenticated()")
-@Api(name="Board Resource", description = "Administracion de Boards de usuario.")
+@Api(name = "Board Resource", description = "Administracion de Boards de usuario.")
 @ApiAuthToken(scheme = "Bearer")
-@CrossOrigin(allowCredentials = "true")
 public class BoardController {
 
     private BoardService boardService;
@@ -60,7 +68,7 @@ public class BoardController {
     @ApiMethod(description = "Recuperar Boards para el id de usuario especificado.")
     @ApiAuthToken(roles = "ADMIN", scheme = "Bearer")
     public ResponseEntity<List<Board>> getByUser(
-            @ApiPathParam(name="userId", description = "Id de Usuario") @PathVariable Long userId) {
+            @ApiPathParam(name = "userId", description = "Id de Usuario") @PathVariable Long userId) {
         return new ResponseEntity<>(boardService.findByUser(userId), HttpStatus.OK);
     }
 
@@ -68,7 +76,7 @@ public class BoardController {
     @GetMapping(value = "/{id}")
     @ApiMethod(description = "Recuperar Board para el usuario actual.")
     public ResponseEntity<Board> getById(
-            @ApiPathParam(name="id", description = "Id de Board") @PathVariable("id") Long id,
+            @ApiPathParam(name = "id", description = "Id de Board") @PathVariable("id") Long id,
             Principal principal) {
         return new ResponseEntity<>(
                 boardService.findByIdAndUserId(id, currentUserId(principal.getName())), HttpStatus.OK);
@@ -79,9 +87,9 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     @ApiMethod(description = "Eliminar Board de usuario.")
     public void deleteById(
-            @ApiPathParam(name="id", description = "Id de Board") @PathVariable("id") Long id,
+            @ApiPathParam(name = "id", description = "Id de Board") @PathVariable("id") Long id,
             Principal principal) {
-        boardService.findByIdAndUserId(id,currentUserId(principal.getName()));
+        boardService.findByIdAndUserId(id, currentUserId(principal.getName()));
         // If no exception was thrown by the previous line, it is safe to proceed.
         boardService.deleteById(id);
     }
@@ -92,7 +100,7 @@ public class BoardController {
     public ResponseEntity<Board> updateBoard(
             @Validated(ValidationUpdate.class) @RequestBody BoardForm boardForm,
             Principal principal) {
-        boardService.findByIdAndUserId(boardForm.getId(),currentUserId(principal.getName()));
+        boardService.findByIdAndUserId(boardForm.getId(), currentUserId(principal.getName()));
         // If no exception was thrown by the previous line, it is safe to proceed.
         return new ResponseEntity<>(boardService.update(boardForm), HttpStatus.OK);
     }
@@ -101,7 +109,7 @@ public class BoardController {
     @PostMapping(value = "/{id}")
     @ApiMethod(description = "Duplicar Board de usuario a otra Board.")
     public ResponseEntity duplicate(
-            @ApiPathParam(name="id", description = "Id de Board") @PathVariable("id") Long id,
+            @ApiPathParam(name = "id", description = "Id de Board") @PathVariable("id") Long id,
             Principal principal) {
         boardService.findByIdAndUserId(id, currentUserId(principal.getName()));
         // If no exception was thrown by the previous line, it is safe to proceed.
